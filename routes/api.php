@@ -1,11 +1,13 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
+
+Route::post('/auth/google-login', [AuthController::class, 'googleLogin']);
 
 Route::get('/places', [PlaceController::class, 'index']);          
 Route::post('/places', [PlaceController::class, 'store']);          

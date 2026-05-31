@@ -20,7 +20,7 @@ class FirebaseService
         // 2. Baca isi file untuk mengambil Project ID
         $credentials = json_decode(file_get_contents($path), true);
 
-        // 3. JURUS PAMUNGKAS: Paksa sistem Windows/PHP membaca file ini
+       
         putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $path);
 
         // 4. Inisialisasi FirestoreClient dengan mode REST (HTTP)
