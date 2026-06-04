@@ -209,10 +209,11 @@ class AuthController extends Controller
             $placeId  = null;
 
             if ($snapshot->exists()) {
-                $name     = $snapshot->get('name') ?? 'User';
-                $role     = $snapshot->get('role') ?? 'user';
-                $cafeName = $snapshot->get('cafe_name') ?? null;
-                $placeId  = $snapshot->get('place_id') ?? null;
+                $data = $snapshot->data();
+                $name     = $data['name'] ?? 'User';
+                $role     = $data['role'] ?? 'user';
+                $cafeName = $data['cafe_name'] ?? null;
+                $placeId  = $data['place_id'] ?? null;
             } else {
                 $userRecord = $this->firebaseAuth->getUser($uid);
                 $name = $userRecord->displayName ?? 'User';
