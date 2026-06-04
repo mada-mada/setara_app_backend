@@ -8,6 +8,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\AuthController;
 
 Route::post('/auth/google-login', [AuthController::class, 'googleLogin']);
+Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/logout', [AuthController::class, 'logout']);
 
 Route::get('/places', [PlaceController::class, 'index']);          
 Route::post('/places', [PlaceController::class, 'store']);          
