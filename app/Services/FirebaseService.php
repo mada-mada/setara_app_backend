@@ -39,6 +39,16 @@ class FirebaseService
     }
     
     /**
+     * Mendapatkan instance Firebase Messaging
+     */
+    public function messaging()
+    {
+        $path = storage_path('app/setara-app-ab081-firebase-adminsdk-fbsvc-129ec6d4c2.json');
+        $factory = (new \Kreait\Firebase\Factory)->withServiceAccount($path);
+        return $factory->createMessaging();
+    }
+    
+    /**
      * Contoh fungsi tambahan untuk mempermudah penulisan data
      */
     public function setDocument(string $collection, string $documentId, array $data)

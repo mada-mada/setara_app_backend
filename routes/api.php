@@ -26,6 +26,7 @@ Route::delete('/places/{placeId}/menus/{menuId}', [MenuController::class, 'destr
 
 Route::get('/orders', [OrderController::class, 'index']);   
 Route::post('/orders', [OrderController::class, 'store']);  
+Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus']);  
 
 Route::get('/users', [UserController::class, 'index']);   
 Route::post('/users', [UserController::class, 'store']);  
