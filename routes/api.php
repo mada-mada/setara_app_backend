@@ -30,6 +30,8 @@ Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus']);
 
 Route::get('/users', [UserController::class, 'index']);   
 Route::post('/users', [UserController::class, 'store']);  
+Route::put('/users/{uid}', [UserController::class, 'update']);
+Route::delete('/users/{uid}', [UserController::class, 'destroy']);
 
 
 Route::post('/projects', [ProjectController::class, 'store']); 
