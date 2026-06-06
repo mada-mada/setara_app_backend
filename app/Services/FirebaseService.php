@@ -20,7 +20,7 @@ class FirebaseService
         // 2. Baca isi file untuk mengambil Project ID
         $credentials = json_decode(file_get_contents($path), true);
 
-        // 3. JURUS PAMUNGKAS: Paksa sistem Windows/PHP membaca file ini
+       
         putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $path);
 
         // 4. Inisialisasi FirestoreClient dengan mode REST (HTTP)
@@ -36,6 +36,16 @@ class FirebaseService
     public function db()
     {
         return $this->firestore;
+    }
+    
+    /**
+     * Mendapatkan instance Firebase Messaging
+     */
+    public function messaging()
+    {
+        $path = storage_path('app/setara-app-ab081-firebase-adminsdk-fbsvc-129ec6d4c2.json');
+        $factory = (new \Kreait\Firebase\Factory)->withServiceAccount($path);
+        return $factory->createMessaging();
     }
     
     /**

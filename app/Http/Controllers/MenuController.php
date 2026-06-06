@@ -18,13 +18,13 @@ class MenuController extends Controller
     public function store(Request $request, $placeId)
     {
         try {
-            // Validasi tanpa image_url
             $request->validate([
                 'category_name' => 'required|string',
                 'name'          => 'required|string',
                 'description'   => 'nullable|string',
                 'price'         => 'required|numeric',
                 'is_available'  => 'required|boolean',
+                'image'         => 'nullable|image|max:5120',
             ]);
 
             $db = $this->firebase->db();
@@ -37,12 +37,19 @@ class MenuController extends Controller
                 ], 404);
             }
 
+            $imageUrl = '';
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('menus', 'public');
+                $imageUrl = url('storage/' . $path);
+            }
+
             $dataToSave = [
                 'category_name' => $request->category_name,
                 'name'          => $request->name,
                 'description'   => $request->description ?? '',
                 'price'         => (int) $request->price,
                 'is_available'  => (bool) $request->is_available,
+                'image_url'     => $imageUrl,
                 'created_at'    => now()->toDateTimeString(),
                 'updated_at'    => now()->toDateTimeString(),
             ];
@@ -119,13 +126,13 @@ class MenuController extends Controller
                 return response()->json(['status' => 'Gagal', 'message' => 'Menu tidak ditemukan!'], 404);
             }
 
-            // Validasi tanpa image_url
             $request->validate([
                 'category_name' => 'required|string',
                 'name'          => 'required|string',
                 'description'   => 'nullable|string',
                 'price'         => 'required|numeric',
                 'is_available'  => 'required|boolean',
+                'image'         => 'nullable|image|max:5120',
             ]);
 
             $dataToUpdate = [
@@ -136,6 +143,11 @@ class MenuController extends Controller
                 'is_available'  => (bool) $request->is_available,
                 'updated_at'    => now()->toDateTimeString(),
             ];
+
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('menus', 'public');
+                $dataToUpdate['image_url'] = url('storage/' . $path);
+            }
 
             // Menggunakan opsi merge agar field lain tetap aman
             $menuRef->set($dataToUpdate, ['merge' => true]);
